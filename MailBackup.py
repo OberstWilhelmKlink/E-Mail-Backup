@@ -249,13 +249,12 @@ def modify_menu():
         sys.exit()
     os.system('cls' if os.name == 'nt' else 'clear')
     menu_input = -1
-    while menu_input not in range(0, 5):
+    while menu_input not in range(0, 4):
         print('''What do you want to do?       
             0 - Exit
             1 - Add E-Mail
-            2 - Edit E-Mail
-            3 - Delete E-Mail
-            4 - Set Base directory for backup
+            2 - Delete E-Mail
+            3 - Set Base directory for backup
             ''')
         menu_input = input('Choose: ')
         menu_input = int(menu_input)
@@ -264,10 +263,8 @@ def modify_menu():
     if menu_input == 1:
         return add_mail()
     if menu_input == 2:
-        return edit_mail()
-    if menu_input == 3:
         return remove_mail()
-    if menu_input == 4:
+    if menu_input == 3:
         return set_base_dir()
 
 
@@ -356,15 +353,11 @@ def remove_mail():
         cursor = sql_connection.cursor()
         cursor.execute('DELETE FROM MailLogin WHERE ID={}'.format(remove_address.get_id()))
         sql_connection.commit()
-        print('E-Mail with ID {1} for user {2} successfully removed.', remove_address.get_id(), remove_address.get_user())
+        print('E-Mail with ID {1} for user {2} successfully removed.',
+              remove_address.get_id(), remove_address.get_user())
     finally:
         sql_connection.close()
 
-    return 0
-
-
-def edit_mail():
-    # TODO Ändern von bestehender Mail-Adresse ermöglichen
     return 0
 
 
